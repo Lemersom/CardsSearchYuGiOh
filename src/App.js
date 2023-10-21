@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import { Grid } from '@mui/material';
 
 import './App.css';
 
-import Card from './components/CardView.js'
+import Card from './components/CardView.js';
 import SearchView from './components/SearchView.js';
-import { Grid } from '@mui/material';
+import Footer from './components/Footer.js'
+import Header from './components/Header.js';
 
 const theme = createTheme({
   palette: {
@@ -20,83 +21,98 @@ const theme = createTheme({
     },
     white: {
       main: '#FFF',
-      contrastText: '#FFF'
+      contrastText: '#FFF',
     },
     blueHeader: {
       main: '#0042B5',
-      contrastText: '#FFF'
+      contrastText: '#FFF',
     },
     blueBtn: {
       main: '#0051DE',
-      contrastText: "#FFF"
-    }
+      contrastText: '#FFF',
+    },
   },
 });
 
 function App() {
+  const [cards, setCards] = useState([]);
+  const [page, setPage] = useState(1);
+  const [maxCards, setMaxCards] = useState(0)
 
-  const [cards, setCards] = useState([])
-  const [pagination, setPagination] = useState("num=6&offset=100")
-  const [query, setQuery] = useState("")
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   const callApi = () => {
     (async () => {
-      const resp = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?${pagination}`)
-      const data = await resp.json()
-      setCards(data.data)
-    })()
-  }
-  
+      const resp = await fetch(
+        `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${(page - 1) * 20}`
+      );
+      const data = await resp.json();
+      setCards(data.data);
+    })();
+  };
+
+  const callApiAll = () => {
+    (async () => {
+      const resp = await fetch(
+        `https://db.ygoprodeck.com/api/v7/cardinfo.php`
+      );
+      const data = await resp.json();
+      setMaxCards(data.data.length)
+    })();
+  };
+
   useEffect(() => {
-    callApi()
-  }, [])
+    callApi();
+    callApiAll();
+  }, [page]);
 
   return (
 
-    <div className="App" >
+    <div className="App">
+
       <ThemeProvider theme={theme}>
-        <header >
-          <AppBar position="static" className='App-header-bar' color='blueHeader'>
-            <Toolbar variant="dense" >
-              <Typography variant="h5" color="inherit" component="div">
-                CardsSearch YuGiOh
-              </Typography>
-            </Toolbar>
-          </AppBar>
-        </header>
-        <main id='main'>
 
+        <Header />
 
-          {/* Search View Component*/}
+        <main id="main">
+
           <SearchView />
-          
 
-          <Grid container spacing={4} align="center" className='main-card'>
+          <Grid container spacing={4} align="center" className="main-card">
 
-            {
-              cards.map((card) => (
-                <Card 
-                  image={card["card_images"][0].image_url_cropped}
-                  name={card.name}
-                  type={card.type}
-                />
-              ))
+            {cards.map((card) => (
+              <Card
+                image={card["card_images"][0].image_url_cropped}
+                name={card.name}
+                type={card.type}
+                func={() =>{console.log(maxCards)}}
+              />
+            ))
             }
 
           </Grid>
           
+          <Pagination
+            count={Math.ceil(maxCards / 20)}
+            page={page}
+            onChange={handleChange}
+            className='main-pagination-bar'
+            variant="outlined" 
+            shape="rounded"
+            color='white'
+            size='large'
+          />
 
         </main>
 
-        <footer>
-
-        </footer>
+        <Footer />
 
       </ThemeProvider>
+
     </div>
-
   );
-
 }
 
 export default App;
