@@ -1,19 +1,14 @@
-import TextField from '@mui/material/TextField';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import Button from '@mui/material/Button';
+import React, { useEffect, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
-import Card from './components/Card.js'
-
 import './App.css';
 
-import React from 'react';
+import Card from './components/CardView.js'
+import SearchView from './components/SearchView.js';
+import { Grid } from '@mui/material';
 
 const theme = createTheme({
   palette: {
@@ -23,29 +18,44 @@ const theme = createTheme({
       dark: '#000',
       contrastText: '#000',
     },
-    blue: {
-      main: '#001969',
-      light: '#bfddf3',
-      dark: '#bfddf3',
-      contrastText: '#bfddf3',
+    white: {
+      main: '#FFF',
+      contrastText: '#FFF'
+    },
+    blueHeader: {
+      main: '#0042B5',
+      contrastText: '#FFF'
+    },
+    blueBtn: {
+      main: '#0051DE',
+      contrastText: "#FFF"
     }
   },
 });
 
 function App() {
 
-  const [filter, setFilter] = React.useState('');
+  const [cards, setCards] = useState([])
+  const [query, setQuery] = useState("?num=6&offset=100")
 
-  const handleChange = (event) => {
-    setFilter(event.target.value);
-  };
+  const callApi = () => {
+    (async () => {
+      const resp = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php${query}`)
+      const data = await resp.json()
+      setCards(data.data)
+    })()
+  }
+  
+  useEffect(() => {
+    callApi()
+  }, [])
 
   return (
 
     <div className="App" >
       <ThemeProvider theme={theme}>
         <header >
-          <AppBar position="static" className='App-header-bar' color='blue'>
+          <AppBar position="static" className='App-header-bar' color='blueHeader'>
             <Toolbar variant="dense" >
               <Typography variant="h5" color="inherit" component="div">
                 CardsSearch YuGiOh
@@ -53,45 +63,26 @@ function App() {
             </Toolbar>
           </AppBar>
         </header>
-        <main>
-          <div className="App-main">
+        <main id='main'>
 
 
-            <TextField id="outlined-basic" label="Buscar..." variant="outlined" color="black" />
+          {/* Search View Component*/}
+          <SearchView />
+          
 
-            <FormControl className="App-main-form" color="black">
+          <Grid container spacing={4} align="center" className='main-card'>
 
-              <InputLabel id="demo-simple-select-label">Filtro</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                onChange={handleChange}
-                value={filter}
-                label="Filtro"
-              >
-                <MenuItem value={'type'}>Tipo</MenuItem>
-                <MenuItem value={'star'}>Estrelas</MenuItem>
-                <MenuItem value={'effect'}>Efeito</MenuItem>
-              </Select>
+            {
+              cards.map((card) => (
+                <Card 
+                  image={card["card_images"][0].image_url_cropped}
+                  name={card.name}
+                  type={card.type}
+                />
+              ))
+            }
 
-
-
-            </FormControl>
-
-            <Button variant="outlined" color="black" className="App-main-button">Buscar</Button>
-
-
-
-          </div>
-
-          <div className='main-card'>
-
-            <Card />
-            <Card />
-            <Card />
-            <Card />
-
-          </div>
+          </Grid>
           
 
         </main>
