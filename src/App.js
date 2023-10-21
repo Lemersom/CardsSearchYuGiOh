@@ -36,11 +36,12 @@ const theme = createTheme({
 function App() {
 
   const [cards, setCards] = useState([])
-  const [query, setQuery] = useState("?num=6&offset=100")
+  const [pagination, setPagination] = useState("num=6&offset=100")
+  const [query, setQuery] = useState("")
 
   const callApi = () => {
     (async () => {
-      const resp = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php${query}`)
+      const resp = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?${pagination}`)
       const data = await resp.json()
       setCards(data.data)
     })()
