@@ -1,4 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Pagination from '@mui/material/Pagination';
 import { Grid, Typography } from '@mui/material';
@@ -11,6 +13,7 @@ import Card from './components/CardView.js';
 import SearchView from './components/SearchView.js';
 import Footer from './components/Footer.js'
 import Header from './components/Header.js';
+import PopUp from './components/PopUp.js'
 
 const theme = createTheme({
   palette: {
@@ -42,10 +45,18 @@ function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("")
   const [errorMsg, setErrorMsg] = useState(0)
+  const [showModal, setShowModal] = useState(false);
+  const [especificCard, setEspecificCard] = useState(-1)
+
 
   const handleChange = (event, value) => {
     setPage(value);
   };
+  function showPopUp(id) {
+    setEspecificCard(id)
+    setShowModal(true)
+  }
+
 
   const callApi = () => {
     (async () => {
@@ -53,11 +64,11 @@ function App() {
         `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${(page - 1) * 20}${query}`
       );
       const data = await resp.json();
-      
-      if(data.error){
+
+      if (data.error) {
         setErrorMsg(1)
       }
-      else{
+      else {
         setErrorMsg(0)
         setCards(data.data)
         setMaxCards(data.meta.total_rows)
@@ -67,8 +78,8 @@ function App() {
 
   useEffect(() => {
     callApi();
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-  }, [page, query]);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
+  }, [page, especificCard, query]);
 
   return (
 
@@ -76,39 +87,46 @@ function App() {
 
       <ThemeProvider theme={theme}>
 
+        {showModal && createPortal(
+          <PopUp
+            onClose={() => setShowModal(false)}
+            image={cards[especificCard]["card_images"][0].image_url}
+          />,
+          document.body
+        )}
         <Header />
 
         <main id="main">
 
-          <QueryContext.Provider value={{setQuery, errorMsg}}>
+          <QueryContext.Provider value={{ setQuery, errorMsg }}>
             <SearchView />
           </QueryContext.Provider>
 
           <Grid container spacing={4} align="center" className="main-card">
 
             {
-              !errorMsg && cards.map((card) => (
+              !errorMsg && cards.map((card, index) => (
                 <Card
                   image={card["card_images"][0].image_url_cropped}
                   name={card.name}
                   type={card.type}
-                  
+                  func={() => showPopUp(index)}
                 />
               ))
             }
 
           </Grid>
-          
-          { !errorMsg &&
+
+          {!errorMsg &&
             <Pagination
-            count={Math.ceil(maxCards / 20)}
-            page={page}
-            onChange={handleChange}
-            className='main-pagination-bar'
-            variant="outlined" 
-            shape="rounded"
-            color='white'
-            size='large'
+              count={Math.ceil(maxCards / 20)}
+              page={page}
+              onChange={handleChange}
+              className='main-pagination-bar'
+              variant="outlined"
+              shape="rounded"
+              color='white'
+              size='large'
             />
           }
 
