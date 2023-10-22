@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-
+import React, { createContext, useEffect, useState } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Pagination from '@mui/material/Pagination';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 
 import './App.css';
+
+import QueryContext from './QueryContext'
 
 import Card from './components/CardView.js';
 import SearchView from './components/SearchView.js';
@@ -34,10 +35,13 @@ const theme = createTheme({
   },
 });
 
+
 function App() {
   const [cards, setCards] = useState([]);
-  const [page, setPage] = useState(1);
   const [maxCards, setMaxCards] = useState(0)
+  const [page, setPage] = useState(1);
+  const [query, setQuery] = useState("")
+  const [errorMsg, setErrorMsg] = useState(0)
 
   const handleChange = (event, value) => {
     setPage(value);
@@ -46,27 +50,25 @@ function App() {
   const callApi = () => {
     (async () => {
       const resp = await fetch(
-        `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${(page - 1) * 20}`
+        `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${(page - 1) * 20}${query}`
       );
       const data = await resp.json();
-      setCards(data.data);
-    })();
-  };
-
-  const callApiAll = () => {
-    (async () => {
-      const resp = await fetch(
-        `https://db.ygoprodeck.com/api/v7/cardinfo.php`
-      );
-      const data = await resp.json();
-      setMaxCards(data.data.length)
+      
+      if(data.error){
+        setErrorMsg(1)
+      }
+      else{
+        setErrorMsg(0)
+        setCards(data.data)
+        setMaxCards(data.meta.total_rows)
+      }
     })();
   };
 
   useEffect(() => {
     callApi();
-    callApiAll();
-  }, [page]);
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+  }, [page, query]);
 
   return (
 
@@ -78,23 +80,27 @@ function App() {
 
         <main id="main">
 
-          <SearchView />
+          <QueryContext.Provider value={{setQuery, errorMsg}}>
+            <SearchView />
+          </QueryContext.Provider>
 
           <Grid container spacing={4} align="center" className="main-card">
 
-            {cards.map((card) => (
-              <Card
-                image={card["card_images"][0].image_url_cropped}
-                name={card.name}
-                type={card.type}
-                func={() =>{console.log(maxCards)}}
-              />
-            ))
+            {
+              !errorMsg && cards.map((card) => (
+                <Card
+                  image={card["card_images"][0].image_url_cropped}
+                  name={card.name}
+                  type={card.type}
+                  
+                />
+              ))
             }
 
           </Grid>
           
-          <Pagination
+          { !errorMsg &&
+            <Pagination
             count={Math.ceil(maxCards / 20)}
             page={page}
             onChange={handleChange}
@@ -103,7 +109,8 @@ function App() {
             shape="rounded"
             color='white'
             size='large'
-          />
+            />
+          }
 
         </main>
 
