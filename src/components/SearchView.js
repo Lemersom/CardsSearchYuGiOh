@@ -52,7 +52,7 @@ export default function SearchView() {
               color="black"
               onKeyUp={changeTextInputValue}/>
 
-            <div className='filter-btn-view'>
+
             <FormControl className="App-main-form" color="black">
 
               <InputLabel id="demo-simple-select-label">Filter</InputLabel>
@@ -75,7 +75,7 @@ export default function SearchView() {
             <Button variant="contained" color="blueBtn" className="App-main-button" onClick={searchFunction}>
                 <Typography>Search</Typography>
             </Button>
-            </div>
+
 
             <div className='error-msg-div'>
               <Typography className='error-msg' variant='h5' display={errorMsg ? "block" : "none"}>Failed to find cards</Typography>

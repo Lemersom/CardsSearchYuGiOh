@@ -5,6 +5,11 @@
   min-height: 100vh;
 }
 
+/*header*/
+.App-header-bar{
+  padding: 1%;
+}
+
 .main{
   height: 100%;
   background-color: #003287; 
@@ -16,13 +21,19 @@
 .App-main{
   display: flex;
   flex-flow: row wrap;
-  gap: 10px;
   margin: 2% auto 2% auto;
   padding: 2%;
   background-color: #CCDFFF;
-  justify-content: space-around;
+  justify-content: space-between;
   max-width: 980px;
   border-radius: 5px;
+}
+@media (max-width: 600px) {
+  .App-main{
+    margin: 2%;
+    gap: 15px;
+    justify-content: space-around;
+  }
 }
 
 #outlined-basic{
@@ -36,13 +47,6 @@
   background-color: #CCDFFF;
 }
 
-.filter-btn-view{
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: center;
-  gap: 10%;
-}
 
 .error-msg-div{
   margin: auto;
@@ -69,6 +73,15 @@
   z-index: 999
 }
 
+@media (max-width: 600px) {
+  .popUp-card{
+    max-width: 310px;
+  }
+  .main-popUP-card{
+    height: 310px;
+  }
+}
+
 .button-close{
   position: absolute;
   top: 0;
@@ -92,8 +105,8 @@
   flex-flow: row wrap;
   justify-content: space-around;
   font-weight: bold;
-  padding: 2%;
-  gap: 10%;
+  padding: 1%;
+  gap: 5%;
 }
 
 .perfil {
