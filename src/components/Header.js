@@ -12,11 +12,11 @@ export default function Header() {
         <header>
 
           <AppBar position="static" className="App-header-bar" color="blueHeader">
-            <Toolbar variant="dense">
+            <Toolbar variant="dense" className='header-toolbar'>
             <img src={Image} alt='Logo'/>
-              <Typography variant="h3" color="inherit" component="div" className='App-header-bar-typography'>
+              {/* <Typography variant="h3" color="inherit" component="div" className='App-header-bar-typography'>
                 CardsSearch
-              </Typography>
+              </Typography> */}
             </Toolbar>
           </AppBar>
 

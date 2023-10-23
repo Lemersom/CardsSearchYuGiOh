@@ -9,7 +9,7 @@ function CardView(props){
                 <CardActionArea onClick={props.func}>
                     <CardMedia
                         component="img"
-                        height={312}
+                        height={"100%"}
                         image={props.image}
                         alt="Card Image"
                     />

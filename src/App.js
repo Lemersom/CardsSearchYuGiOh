@@ -47,10 +47,12 @@ function App() {
   const [errorMsg, setErrorMsg] = useState(0)
   const [showModal, setShowModal] = useState(false);
   const [especificCard, setEspecificCard] = useState(-1)
+  const [scrollToTop, setScrollToTop] = useState(false);
 
 
   const handleChange = (event, value) => {
     setPage(value);
+    setScrollToTop(true)
   };
   function showPopUp(id) {
     setEspecificCard(id)
@@ -78,8 +80,16 @@ function App() {
 
   useEffect(() => {
     callApi();
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }, [page, especificCard, query]);
+
+  
+
+  useEffect(() => {
+    if (scrollToTop) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      setScrollToTop(false);
+    }
+  }, [scrollToTop]);
 
   return (
 
@@ -88,10 +98,11 @@ function App() {
       <ThemeProvider theme={theme}>
 
         {showModal && createPortal(
-          <PopUp
-            onClose={() => setShowModal(false)}
-            image={cards[especificCard]["card_images"][0].image_url}
-          />,
+          <div className='popup-background' onClick={() => setShowModal(false)}>
+              <PopUp
+                image={cards[especificCard]["card_images"][0].image_url}
+            />
+          </div>,
           document.body
         )}
         <Header />
