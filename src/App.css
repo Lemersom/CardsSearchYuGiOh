@@ -53,13 +53,17 @@
 }
 
 
-.error-msg-div {
+.msg-div {
   margin: auto;
   width: 100%;
 }
 
 .error-msg {
   color: #b61717;
+}
+
+.hint-msg {
+  color: #0051DE
 }
 
 /*Card*/
@@ -69,36 +73,55 @@
   padding: 2%;
 }
 
-.main-popUP-content {
-  background-color: #0042B5;
+.main-popup-background {
+  background-color: #1B262C;
   display: flex;
-  align-items: center;
   z-index: 999;
   color: #b2ffff;
+  flex-flow: row wrap;
+}
+@media (max-width: 1000px) {
+  .main-popup-background {
+    width: 422px;
+    margin: auto;
+  }
+  .content-card-popup{
+    min-width: 96%;
+  }
 }
 
-
-.main-popUP {
+.main-popup {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
   z-index: 999;
-  width: 900px;
+  width: 842px;
 }
 
-.content-card-popUp {
-  height: '100%';
-  display: 'flex';
-  flex-direction: 'column';
-  justify-content: center;
-  align-items: center;
+.content-card-popup{
+  display: flex;
+  padding: 2%;
+  flex-direction: column;
+  max-width: 45%;
 }
 
-@media (max-width: 620px) {
-  .main-popUP {
-    width: 85%;
+@media (max-width: 680px) {
+  .main-popup {
+    width: 80%;
+    max-height: 90%;
+    overflow-y: auto;
+  }
+  .content-card-popup{
+    max-width: 100%;
+  }
+  .main-popup-background {
+    width: 80%;
+  }
+}
+@media (max-width: 550px) {
+  .main-popup-background {
+    width: 100%;
   }
 }
 

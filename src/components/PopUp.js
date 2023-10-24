@@ -1,24 +1,30 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
-export default function ModalContent( props ) {
+export default function ModalContent(props) {
+
+    const doNotClose = (event) => {
+        event.stopPropagation()
+    }
+
     return (
-        <div className="main-popUP">
-            <div className="main-popUP-content">
-                <Card sx={{ maxWidth: 500 }} >
+        <div className="main-popup" onClick={doNotClose}>
+            <div className="main-popup-background">
+                <Card className="main-popup-media">
                     <CardMedia
-                        className='main-popUP-card'
+                        className='popup-media'
                         component="img"
                         height={"100%"}
                         image={props.image}
                         alt="Card Image"
                     />
                 </Card>
-                <div className="content-card-popUp">
-                    <Typography sx={{fontSize: 40}}>{props.set_name}</Typography>
-                    <Typography sx={{fontSize: 40}}>{props.set_code}</Typography>
-                    <Typography sx={{fontSize: 40}}>{props.set_rarity}</Typography>
-                    <Typography sx={{fontSize: 40}}>{props.set_rarity_code}</Typography>
-                    <Typography sx={{fontSize: 40}}>{props.set_price}</Typography>
+                <div className="content-card-popup">
+                    <Typography variant="h5">Sets: </Typography>
+                    {props.sets &&
+                        props.sets.map((set) => (
+                            <Typography variant="subtitle1" className="set-name">-{set.set_name}</Typography>
+                        ))
+                    }
                 </div>
             </div>
         </div>

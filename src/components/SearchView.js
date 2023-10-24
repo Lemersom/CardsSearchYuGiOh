@@ -12,7 +12,7 @@ import QueryContext from '../QueryContext';
 
 export default function SearchView() {
 
-    const { setQuery, errorMsg } = useContext(QueryContext)
+    const { setQuery, errorMsg, hintMsg } = useContext(QueryContext)
     
     const [filter, setFilter] = React.useState("fname");
     const [placeholder, setPlaceholder] = React.useState("name")
@@ -77,8 +77,9 @@ export default function SearchView() {
             </Button>
 
 
-            <div className='error-msg-div'>
+            <div className='msg-div'>
               <Typography className='error-msg' variant='h5' display={errorMsg ? "block" : "none"}>Failed to find cards</Typography>
+              <Typography className='hint-msg' variant='h6' display={!errorMsg && hintMsg ? "block" : "none"}>More Info: Click on the Card Image</Typography>
             </div>
         
 

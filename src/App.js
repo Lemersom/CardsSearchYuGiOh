@@ -45,6 +45,7 @@ function App() {
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("")
   const [errorMsg, setErrorMsg] = useState(0)
+  const [hintMsg, setHintMsg] = useState(0)
   const [showModal, setShowModal] = useState(false);
   const [especificCard, setEspecificCard] = useState(-1)
   const [scrollToTop, setScrollToTop] = useState(false);
@@ -62,9 +63,15 @@ function App() {
 
   const callApi = () => {
     (async () => {
-      const resp = await fetch(
-        `https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${(page - 1) * 20}${query}`
-      );
+      const link = "https://db.ygoprodeck.com/api/v7/cardinfo.php?"
+      let fullQuery = ""
+      if(query.includes("fname")){
+        fullQuery = link + query
+      }
+      else{
+        fullQuery = `${link}num=20&offset=${(page - 1) * 20}${query}`
+      }
+      const resp = await fetch(fullQuery);
       const data = await resp.json();
 
       if (data.error) {
@@ -73,13 +80,21 @@ function App() {
       else {
         setErrorMsg(0)
         setCards(data.data)
-        setMaxCards(data.meta.total_rows)
+        if(!query.includes("fname")){
+          setMaxCards(data.meta.total_rows)
+        }   
       }
     })();
   };
 
   useEffect(() => {
     callApi();
+    if(page === 1){
+      setHintMsg(1)
+    }
+    else{
+      setHintMsg(0)
+    }
   }, [page, especificCard, query]);
 
   
@@ -101,11 +116,7 @@ function App() {
           <div className='popup-background' onClick={() => setShowModal(false)}>
               <PopUp
                 image={cards[especificCard]["card_images"][0].image_url}
-                set_name={cards[especificCard]["card_sets"][0].set_name}
-                set_code={cards[especificCard]["card_sets"][0].set_code}
-                set_rarity={cards[especificCard]["card_sets"][0].set_rarity}
-                set_rarity_code={cards[especificCard]["card_sets"][0].set_rarity_code}
-                set_price={cards[especificCard]["card_sets"][0].set_price}
+                sets={cards[especificCard]["card_sets"]}
             />
           </div>,
           document.body
@@ -114,7 +125,7 @@ function App() {
 
         <main id="main">
 
-          <QueryContext.Provider value={{ setQuery, errorMsg }}>
+          <QueryContext.Provider value={{ setQuery, errorMsg, hintMsg }}>
             <SearchView />
           </QueryContext.Provider>
 
@@ -133,7 +144,7 @@ function App() {
 
           </Grid>
 
-          {!errorMsg &&
+          {!errorMsg && !query.includes("fname") &&
             <Pagination
               count={Math.ceil(maxCards / 20)}
               page={page}
