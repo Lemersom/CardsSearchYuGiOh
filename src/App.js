@@ -65,7 +65,7 @@ function App() {
     (async () => {
       const link = "https://db.ygoprodeck.com/api/v7/cardinfo.php?"
       let fullQuery = ""
-      if(query.includes("fname")){
+      if(query.includes("fname") && query.length > 7){
         fullQuery = link + query
       }
       else{
@@ -144,7 +144,7 @@ function App() {
 
           </Grid>
 
-          {!errorMsg && !query.includes("fname") &&
+          {!errorMsg && !(query.includes("fname") && query.length < 7) &&
             <Pagination
               count={Math.ceil(maxCards / 20)}
               page={page}
