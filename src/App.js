@@ -101,6 +101,11 @@ function App() {
           <div className='popup-background' onClick={() => setShowModal(false)}>
               <PopUp
                 image={cards[especificCard]["card_images"][0].image_url}
+                set_name={cards[especificCard]["card_sets"][0].set_name}
+                set_code={cards[especificCard]["card_sets"][0].set_code}
+                set_rarity={cards[especificCard]["card_sets"][0].set_rarity}
+                set_rarity_code={cards[especificCard]["card_sets"][0].set_rarity_code}
+                set_price={cards[especificCard]["card_sets"][0].set_price}
             />
           </div>,
           document.body

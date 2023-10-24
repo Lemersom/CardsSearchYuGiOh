@@ -1,22 +1,26 @@
-import { Card, CardActionArea, CardMedia } from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 
-
-export default function ModalContent({ image }) {
+export default function ModalContent( props ) {
     return (
         <div className="main-popUP">
-
-            <Card sx={{ maxWidth: 500 }}  className="popUp-card">
-                <CardActionArea>
+            <div className="main-popUP-content">
+                <Card sx={{ maxWidth: 500 }} >
                     <CardMedia
                         className='main-popUP-card'
                         component="img"
                         height={"100%"}
-                        image={image}
+                        image={props.image}
                         alt="Card Image"
                     />
-                </CardActionArea>
-            </Card>
-
+                </Card>
+                <div className="content-card-popUp">
+                    <Typography sx={{fontSize: 40}}>{props.set_name}</Typography>
+                    <Typography sx={{fontSize: 40}}>{props.set_code}</Typography>
+                    <Typography sx={{fontSize: 40}}>{props.set_rarity}</Typography>
+                    <Typography sx={{fontSize: 40}}>{props.set_rarity_code}</Typography>
+                    <Typography sx={{fontSize: 40}}>{props.set_price}</Typography>
+                </div>
+            </div>
         </div>
     );
 }
