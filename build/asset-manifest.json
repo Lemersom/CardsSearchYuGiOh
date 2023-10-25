@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "./static/css/main.983fe64e.css",
+    "main.js": "./static/js/main.2cca3405.js",
+    "static/js/787.2033a31b.chunk.js": "./static/js/787.2033a31b.chunk.js",
+    "static/media/background-card.png": "./static/media/background-card.d3ae074519f98816b629.png",
+    "static/media/Yu-Gi-Oh.svg": "./static/media/Yu-Gi-Oh.99fadcd82017841e4c16db7bd246fd66.svg",
+    "static/media/img-footer.jpg": "./static/media/img-footer.e99d210028e09546fc93.jpg",
+    "static/media/background-body.jpg": "./static/media/background-body.3533f856b93305f8f310.jpg",
+    "index.html": "./index.html",
+    "main.983fe64e.css.map": "./static/css/main.983fe64e.css.map",
+    "main.2cca3405.js.map": "./static/js/main.2cca3405.js.map",
+    "787.2033a31b.chunk.js.map": "./static/js/787.2033a31b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.983fe64e.css",
+    "static/js/main.2cca3405.js"
+  ]
+}
