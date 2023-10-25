@@ -1,10 +1,10 @@
 import '../App.css';
 
-export default function Footer() {
+export default function Footer( props ) {
 
     return (
 
-        <footer id='footer'>
+        <footer id='footer' className={props.errorMsg ? 'footer-fixed' : null} >
 
             <div className="perfil">
                 <ul>

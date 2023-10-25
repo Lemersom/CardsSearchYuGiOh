@@ -19,9 +19,9 @@ const theme = createTheme({
   palette: {
     black: {
       main: '#000',
-      light: '#000',
+      light: '#fff',
       dark: '#000',
-      contrastText: '#000',
+      contrastText: '#fff',
     },
     white: {
       main: '#FFF',
@@ -159,7 +159,7 @@ function App() {
 
         </main>
 
-        <Footer />
+        <Footer errorMsg={errorMsg}/>
 
       </ThemeProvider>
 

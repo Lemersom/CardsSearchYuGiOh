@@ -1,18 +1,24 @@
 .App {
   text-align: center;
-  background-color: #003287;
+  background-image: url('./Images/background-body.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   width: 100%;
   min-height: 100vh;
 }
 
 /*header*/
 .App-header-bar {
+  background-image: url('./Images/background-body.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   padding: 1%;
 }
 
 .main {
   height: 100%;
-  background-color: #003287;
 }
 
 
@@ -49,12 +55,17 @@
 #outlined-basic {
   width: 40em;
   border: 2px, black;
-  background-color: #CCDFFF;
 }
 
 .App-main-form {
   min-width: 10%;
   background-color: #CCDFFF;
+}
+
+.footer-fixed {
+  position: fixed;
+  bottom: 0; 
+  width: 100%;
 }
 
 
@@ -91,7 +102,7 @@
 .main-popup-background {
   display: flex;
   z-index: 999;
-  color: #b2ffff;
+  color: #ffffff;
   flex-flow: row wrap;
   word-wrap: break-word;
 }
@@ -100,11 +111,15 @@
   display: flex;
   margin: 0 0 0 2%;
   padding-top: 2%;
+  background-image: url('./Images/background-card.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+
   background-color: #285b78;
   flex-direction: column;
   align-items: center;
   width: 47.5%;
-  border: 7px solid #97d7d7;
   border-radius: 7px;
 }
 
@@ -123,6 +138,7 @@
   }
   .content-card-popup{
     min-width: 96%;
+    width: 100%;
   }
 }
 
@@ -166,11 +182,20 @@
   flex-direction: row;
   justify-content: center;
   margin: 2%;
+  color: white !important;
+}
+
+.MuiPaginationItem-outlined{
+  color: white !important;
+  border-color: white !important;
 }
 
 /*footer*/
 #footer {
-  background-color: #0042B5;
+  background-image: url('./Images/img-footer.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -181,7 +206,7 @@
 .perfil {
   display: flex;
   flex-direction: column;
-  color: #b2ffff;
+  color: #fff;
 }
 
 .perfil ul {
