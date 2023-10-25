@@ -63,15 +63,8 @@ function App() {
 
   const callApi = () => {
     (async () => {
-      const link = "https://db.ygoprodeck.com/api/v7/cardinfo.php?"
-      let fullQuery = ""
-      if(query.includes("fname") && query.length > 7){
-        fullQuery = link + query
-      }
-      else{
-        fullQuery = `${link}num=20&offset=${(page - 1) * 20}${query}`
-      }
-      const resp = await fetch(fullQuery);
+      const link = `https://db.ygoprodeck.com/api/v7/cardinfo.php?${query}&num=20&offset=${(page - 1) * 20}`
+      const resp = await fetch(link);
       const data = await resp.json();
 
       if (data.error) {
@@ -80,9 +73,7 @@ function App() {
       else {
         setErrorMsg(0)
         setCards(data.data)
-        if(!query.includes("fname")){
-          setMaxCards(data.meta.total_rows)
-        }   
+        setMaxCards(data.meta.total_rows) 
       }
     })();
   };
@@ -95,7 +86,12 @@ function App() {
     else{
       setHintMsg(0)
     }
-  }, [page, especificCard, query]);
+  }, [page, especificCard]);
+
+  useEffect(() => {
+    setPage(1)
+    callApi();
+  }, [query]);
 
   
 
@@ -143,8 +139,8 @@ function App() {
             }
 
           </Grid>
-
-          {!errorMsg && !(query.includes("fname") && query.length < 7) &&
+          
+          {!errorMsg  &&
             <Pagination
               count={Math.ceil(maxCards / 20)}
               page={page}
