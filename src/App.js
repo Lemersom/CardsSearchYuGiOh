@@ -55,6 +55,7 @@ function App() {
     setPage(value);
     setScrollToTop(true)
   };
+
   function showPopUp(id) {
     setEspecificCard(id)
     setShowModal(true)
@@ -62,21 +63,22 @@ function App() {
 
 
   const callApi = () => {
+    
     (async () => {
       const link = `https://db.ygoprodeck.com/api/v7/cardinfo.php?${query}&num=20&offset=${(page - 1) * 20}`
       const resp = await fetch(link);
       const data = await resp.json();
-
       if (data.error) {
         setErrorMsg(1)
       }
       else {
         setErrorMsg(0)
         setCards(data.data)
-        setMaxCards(data.meta.total_rows) 
+        setMaxCards(data.meta.total_rows)       
       }
     })();
   };
+
 
   useEffect(() => {
     callApi();
@@ -92,8 +94,6 @@ function App() {
     setPage(1)
     callApi();
   }, [query]);
-
-  
 
   useEffect(() => {
     if (scrollToTop) {

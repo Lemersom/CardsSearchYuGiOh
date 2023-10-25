@@ -44,7 +44,12 @@
 @media (max-width: 940px) {
   .App-main {
     margin: 2%;
+    color: #e0ecf3;
     justify-content: space-around;
+  }
+  .App-main-button:hover{
+    color: #e0ecf3;
+    background-color: #0051DE;;
   }
 
   .header-toolbar {
@@ -61,13 +66,6 @@
   min-width: 10%;
   background-color: #CCDFFF;
 }
-
-.footer-fixed {
-  position: fixed;
-  bottom: 0; 
-  width: 100%;
-}
-
 
 .msg-div {
   margin: auto;
@@ -127,6 +125,20 @@
   width: 80%;
   justify-content: left;
 }
+
+.popup-background {
+  position: fixed;
+  z-index: 900;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .set-name{
   font-size: 23.5px;
 }
@@ -162,20 +174,6 @@
   }
 }
 
-.popup-background {
-  position: fixed;
-  z-index: 900;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-
 /*Pagination*/
 .main-pagination-bar {
   display: flex;
@@ -201,6 +199,12 @@
   justify-content: space-around;
   font-weight: bold;
   gap: 5%;
+}
+
+.footer-fixed {
+  position: fixed;
+  bottom: 0; 
+  width: 100%;
 }
 
 .perfil {
