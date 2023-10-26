@@ -1,9 +1,9 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Pagination from '@mui/material/Pagination';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 
 import './App.css';
 
@@ -44,14 +44,21 @@ function App() {
   const [maxCards, setMaxCards] = useState(0)
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("")
-  const [errorMsg, setErrorMsg] = useState(0)
-  const [hintMsg, setHintMsg] = useState(0)
+  const [errorMsg, setErrorMsg] = useState(false)
+  const [hintMsg, setHintMsg] = useState(false)
   const [showModal, setShowModal] = useState(false);
   const [especificCard, setEspecificCard] = useState(-1)
   const [scrollToTop, setScrollToTop] = useState(false);
+  const [logoClicked, setLogoClicked] = useState(0)
 
 
-  const handleChange = (event, value) => {
+  const resetQuery = () => {
+    setQuery("")
+    setPage(1)
+    logoClicked ? setLogoClicked(0) : setLogoClicked(1)
+  }
+
+  const onChangePage = (event, value) => {
     setPage(value);
     setScrollToTop(true)
   };
@@ -69,10 +76,10 @@ function App() {
       const resp = await fetch(link);
       const data = await resp.json();
       if (data.error) {
-        setErrorMsg(1)
+        setErrorMsg(true)
       }
       else {
-        setErrorMsg(0)
+        setErrorMsg(false)
         setCards(data.data)
         setMaxCards(data.meta.total_rows)       
       }
@@ -82,12 +89,7 @@ function App() {
 
   useEffect(() => {
     callApi();
-    if(page === 1){
-      setHintMsg(1)
-    }
-    else{
-      setHintMsg(0)
-    }
+    page === 1 ? setHintMsg(true) : setHintMsg(false)
   }, [page, especificCard]);
 
   useEffect(() => {
@@ -117,11 +119,14 @@ function App() {
           </div>,
           document.body
         )}
-        <Header />
+
+
+        <Header onClickLogo={resetQuery}/>
+        
 
         <main id="main">
 
-          <QueryContext.Provider value={{ setQuery, errorMsg, hintMsg }}>
+          <QueryContext.Provider value={{ setQuery, errorMsg, hintMsg, logoClicked }}>
             <SearchView />
           </QueryContext.Provider>
 
@@ -133,7 +138,7 @@ function App() {
                   image={card["card_images"][0].image_url_cropped}
                   name={card.name}
                   type={card.type}
-                  func={() => showPopUp(index)}
+                  onClick={() => showPopUp(index)}
                 />
               ))
             }
@@ -144,7 +149,7 @@ function App() {
             <Pagination
               count={Math.ceil(maxCards / 20)}
               page={page}
-              onChange={handleChange}
+              onChange={onChangePage}
               className='main-pagination-bar'
               variant="outlined"
               shape="rounded"

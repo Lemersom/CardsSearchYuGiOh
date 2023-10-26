@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import { Card, CardMedia, Typography } from "@mui/material";
 
 export default function ModalContent(props) {
   const doNotClose = (event) => {

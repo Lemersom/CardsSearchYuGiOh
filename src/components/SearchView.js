@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -12,13 +12,13 @@ import QueryContext from '../QueryContext';
 
 export default function SearchView() {
 
-    const { setQuery, errorMsg, hintMsg } = useContext(QueryContext)
+    const { setQuery, errorMsg, hintMsg, logoClicked } = useContext(QueryContext)
     
     const [filter, setFilter] = React.useState("fname");
     const [placeholder, setPlaceholder] = React.useState("name")
     const [textFieldValue, setTextFieldValue] = React.useState("")
 
-    const handleChange = (event) => {
+    const onChangeFilter = (event) => {
       if(event.target.value === "fname"){
         setPlaceholder("name")
       }
@@ -26,13 +26,11 @@ export default function SearchView() {
         setPlaceholder(event.target.value)
         
       }
-      
+
       setFilter(event.target.value); 
     };
 
-    const changeTextInputValue = (event) => {
-      setTextFieldValue(event.target.value)
-
+    const keyPressed = (event) => {
       if(event.keyCode === 13){
         searchFunction()
       }
@@ -42,6 +40,12 @@ export default function SearchView() {
       setQuery(`&${filter}=${textFieldValue}`)
     }
 
+    useEffect(() => {
+      setFilter("fname")
+      setPlaceholder("name")
+      setTextFieldValue("")
+    }, [logoClicked]);
+
     return (
         <div className="App-main">
 
@@ -50,7 +54,9 @@ export default function SearchView() {
               label={placeholder} 
               variant="outlined" 
               color="black"
-              onKeyUp={changeTextInputValue}/>
+              value={textFieldValue}
+              onChange={(event) => setTextFieldValue(event.target.value)}
+              onKeyUp={keyPressed}/>
 
 
             <FormControl className="App-main-form" color="black">
@@ -59,7 +65,7 @@ export default function SearchView() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                onChange={handleChange}
+                onChange={onChangeFilter}
                 value={filter}
                 label="Filter"
               >

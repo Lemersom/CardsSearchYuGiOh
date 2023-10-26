@@ -2,10 +2,9 @@ import '../App.css';
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Image from '../Images/Yu-Gi-Oh.svg'
 
-export default function Header() {
+export default function Header(props) {
 
     return (
 
@@ -13,10 +12,7 @@ export default function Header() {
 
           <AppBar position="static" className="App-header-bar" color="blueHeader">
             <Toolbar variant="dense" className='header-toolbar'>
-            <img src={Image} alt='Logo'/>
-              {/* <Typography variant="h3" color="inherit" component="div" className='App-header-bar-typography'>
-                CardsSearch
-              </Typography> */}
+              <img src={Image} alt='Logo' onClick={props.onClickLogo}/>
             </Toolbar>
           </AppBar>
 
