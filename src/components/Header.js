@@ -12,7 +12,7 @@ export default function Header(props) {
 
           <AppBar position="static" className="App-header-bar" color="blueHeader">
             <Toolbar variant="dense" className='header-toolbar'>
-              <img src={Image} alt='Logo' onClick={props.onClickLogo}/>
+              <img src={Image} alt='Logo' onClick={props.onClickLogo} className='header-logo'/>
             </Toolbar>
           </AppBar>
 

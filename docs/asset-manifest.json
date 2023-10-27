@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.css": "./static/css/main.079174e1.css",
-    "main.js": "./static/js/main.29b60d19.js",
+    "main.css": "./static/css/main.73183f87.css",
+    "main.js": "./static/js/main.b6c4ff27.js",
     "static/js/787.2033a31b.chunk.js": "./static/js/787.2033a31b.chunk.js",
     "static/media/background-card.png": "./static/media/background-card.d3ae074519f98816b629.png",
     "static/media/Yu-Gi-Oh.svg": "./static/media/Yu-Gi-Oh.99fadcd82017841e4c16db7bd246fd66.svg",
     "static/media/img-footer.jpg": "./static/media/img-footer.e99d210028e09546fc93.jpg",
     "static/media/background-body.jpg": "./static/media/background-body.3533f856b93305f8f310.jpg",
     "index.html": "./index.html",
-    "main.079174e1.css.map": "./static/css/main.079174e1.css.map",
-    "main.29b60d19.js.map": "./static/js/main.29b60d19.js.map",
+    "main.73183f87.css.map": "./static/css/main.73183f87.css.map",
+    "main.b6c4ff27.js.map": "./static/js/main.b6c4ff27.js.map",
     "787.2033a31b.chunk.js.map": "./static/js/787.2033a31b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.079174e1.css",
-    "static/js/main.29b60d19.js"
+    "static/css/main.73183f87.css",
+    "static/js/main.b6c4ff27.js"
   ]
 }

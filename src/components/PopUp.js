@@ -5,6 +5,7 @@ export default function ModalContent(props) {
     event.stopPropagation();
   };
 
+
   return (
     <div className="main-popup" onClick={doNotClose}>
       <div className="main-popup-background">
@@ -19,7 +20,7 @@ export default function ModalContent(props) {
         </Card>
         <div className="content-card-popup">
           <Typography variant="h3">Sets: </Typography>
-          <ul>
+          <ul className="text-content">
             {props.sets &&
               props.sets.map((set) => ( 
                 <li className="set-name">{set.set_name}</li>
