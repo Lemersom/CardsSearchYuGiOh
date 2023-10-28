@@ -39,21 +39,21 @@ Start the server
 
 <figure>
   <figcaption>Homepage:</figcaption>
-  <img src="https://github.com/Lemersom/test-readme/blob/main/screenshots/homepage.jpg?raw=true" alt="Homepage">
+  <img src="https://github.com/Lemersom/CardsSearchYuGiOh/blob/main/screenshots/homepage.jpg?raw=true" alt="Homepage">
 </figure>  
 
 ---  
 
 <figure>
   <figcaption>Filter:</figcaption>
-  <img src="https://github.com/Lemersom/test-readme/blob/main/screenshots/filters.jpg?raw=true" alt="Filters">
+  <img src="https://github.com/Lemersom/CardsSearchYuGiOh/blob/main/screenshots/filters.jpg?raw=true" alt="Filters">
 </figure>  
 
 ---  
 
 <figure>
   <figcaption>Popup:</figcaption>
-  <img src="https://github.com/Lemersom/test-readme/blob/main/screenshots/popup.jpg?raw=true" alt="Popup">
+  <img src="https://github.com/Lemersom/CardsSearchYuGiOh/blob/main/screenshots/popup.jpg?raw=true" alt="Popup">
 </figure>   
 
 
