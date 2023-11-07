@@ -24,7 +24,7 @@ Clone the project
 
 Navigate to the project directory
 
-`cd my-project`
+`cd CardsSearchYuGiOh`
 
 Install the dependencies
 
