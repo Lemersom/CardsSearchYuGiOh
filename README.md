@@ -20,19 +20,27 @@ You can access the project on the website by clicking [HERE](https://lemersom.gi
 
 Clone the project
 
-`git clone https://github.com/Lemersom/CardsSearchYuGiOh.git`
+```bash
+git clone https://github.com/Lemersom/CardsSearchYuGiOh.git
+```
 
 Navigate to the project directory
 
-`cd CardsSearchYuGiOh`
+```bash
+cd CardsSearchYuGiOh
+```
 
 Install the dependencies
 
-`npm install`
+```bash
+npm install
+```
 
 Start the server
 
-`npm start`
+```bash
+npm start
+```
 
 
 ## Screenshots
